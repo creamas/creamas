@@ -1,5 +1,5 @@
 
-var game = new Phaser.Game(window.innerWidth*1.0, window.innerHeight*1.0, Phaser.CANVAS, 'game', { update: update, preload: preload, create: create, render: render });
+var game = new Phaser.Game(window.innerWidth*0.8, window.innerHeight*0.85, Phaser.CANVAS, 'game', { update: update, preload: preload, create: create, render: render });
 
 var barSpace;
 var barWidth;
@@ -14,8 +14,8 @@ var lines01 = [];
 var lines02 = [];
 var linesRs = [];
 
-num01 = 2;
-den01 = 5;
+num01 = 1;
+den01 = 2;
 
 num02 = 1;
 den02 = 3;
@@ -28,13 +28,19 @@ var frac01 = num01/den01;
 var frac02 = num02/den02;
 var fracRs = frac01+frac02;
 
+$('#num01').keyup(function(e) {
+    num01 = $("#num01").val();
+});
+
 function preload() {
 //	game.load.spritesheet('button', 'assets/buttons/button_sprite_sheet.png', 193, 71);
 }
 
 function create() {
-	barSpace = 300;
+	barSpace = 0.15*game.world.width;
 	barWidth = game.world.width/10;
+
+    this.game.stage.backgroundColor = '#1189C2';
 
     bar01       = new Phaser.Rectangle(                           0,                              0, barWidth, game.world.height         );
     barFilled01 = new Phaser.Rectangle(                           0, game.world.height * (1-frac01), barWidth, game.world.height * frac01);
@@ -62,7 +68,7 @@ function create() {
     } else {
     	xRs0 = 2*(barWidth + barSpace);
     }
-    for (var i = barSpace; i >= 0; i--) {
+    for (var i = 100; i >= 0; i--) {
     	y = i*game.world.height/denRs;
     	linesRs[i] = new Phaser.Line(xRs0, y, 3*barWidth + 2*barSpace, y);
     }
